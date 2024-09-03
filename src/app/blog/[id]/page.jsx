@@ -1,16 +1,27 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-const BlogPost = () => {
+async function getData(id) {
+  const res = await fetch(`https://dummyjson.com/posts/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
+}
+
+const BlogPost = async ({ params }) => {
+  const post = await getData(params.id);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <div className={styles.info}>
-          <h1 className={styles.title}>Title</h1>
-          <p className={styles.desc}>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime sed
-            aperiam non iure reprehenderit maiores?
-          </p>
+          <h1 className={styles.title}>{post.title}</h1>
+          <p className={styles.desc}>{post.body}</p>
           <div className={styles.author}>
             <Image
               src={
@@ -36,7 +47,7 @@ const BlogPost = () => {
         </div>
       </div>
       <div className={styles.content}>
-        <p className={styles.text}>Lorem ipsum dolor sit amet.</p>
+        <p className={styles.text}>{post.body.slice(0, 200)}...</p>
       </div>
     </div>
   );
