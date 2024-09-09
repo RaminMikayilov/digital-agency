@@ -2,6 +2,11 @@ import Button from "@/components/button/button";
 import Image from "next/image";
 import styles from "./page.module.css";
 
+export const metadata = {
+  title: "Digital Agency | About",
+  description: "Digital Agency | About",
+};
+
 function About() {
   return (
     <div>

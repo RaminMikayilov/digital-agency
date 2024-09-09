@@ -13,6 +13,15 @@ async function getData(id) {
   return res.json();
 }
 
+export async function generateMetadata({ params }) {
+  const post = await getData(params.id);
+
+  return {
+    title: `Digital Agency | ${post.title}`,
+    description: `Digital Agency | ${post.desc}`,
+  };
+}
+
 const BlogPost = async ({ params }) => {
   const post = await getData(params.id);
 

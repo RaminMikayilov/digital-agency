@@ -14,6 +14,13 @@ const getData = (cat) => {
   return notFound();
 };
 
+export async function generateMetadata({ params }) {
+  return {
+    title: `Digital Agency | ${params.category}`,
+    description: "Digital Agency | Portfolio",
+  };
+}
+
 const Category = ({ params }) => {
   const data = getData(params.category);
   return (
